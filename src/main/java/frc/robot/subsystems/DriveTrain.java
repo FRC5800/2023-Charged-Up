@@ -5,18 +5,18 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.OperatorConstants;;
 
 public class DriveTrain extends SubsystemBase {
   
-  WPI_TalonSRX rightMaster = new WPI_TalonSRX(1);
-  WPI_TalonSRX rightSlave = new WPI_TalonSRX(2);
-  WPI_TalonSRX leftMaster = new WPI_TalonSRX(3);
-  WPI_TalonSRX leftSlave = new WPI_TalonSRX(4);
+  WPI_TalonSRX rightMaster = new WPI_TalonSRX(OperatorConstants.RIGHT_MASTER_ID);
+  WPI_TalonSRX rightSlave = new WPI_TalonSRX(OperatorConstants.RIGHT_SLAVE_ID);
+  WPI_TalonSRX leftMaster = new WPI_TalonSRX(OperatorConstants.LEFT_MASTER_ID);
+  WPI_TalonSRX leftSlave = new WPI_TalonSRX(OperatorConstants.LEFT_SLAVE_ID);
 
   private DifferentialDrive drive = new DifferentialDrive(leftMaster, rightMaster);
 
