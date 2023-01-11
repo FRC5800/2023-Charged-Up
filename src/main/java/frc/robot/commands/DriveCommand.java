@@ -5,48 +5,51 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class DriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain driveTrain;
-  Timer timer = new Timer();
+  private final XboxController xboxController;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new DriveCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(DriveTrain subsystem) {
-    driveTrain = subsystem;
+  public DriveCommand(DriveTrain driveTrain, XboxController xboxController) {
+    this.driveTrain = driveTrain;
+    this.xboxController = xboxController;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.reset();
-    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.arcadeDrive(0.5,0);
+    double moveLeft = xboxController.getRawAxis(XboxController.Axis.kLeftY.value) * 0.6;
+    double turnRight = xboxController.getRawAxis(XboxController.Axis.kRightX.value) * 0.6;
+
+    driveTrain.arcadeDrive(moveLeft, turnRight);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    timer.stop();
+    driveTrain.arcadeDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() { 
-    return timer.get() <= 3;
+    return false;
   }
 }

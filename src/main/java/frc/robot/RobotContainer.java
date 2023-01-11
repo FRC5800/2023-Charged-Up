@@ -6,21 +6,17 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_DriveTrain = new DriveTrain();
+  private final DriveTrain driveTrain = new DriveTrain();
+  private final XboxController xboxController = new XboxController(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -28,6 +24,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    driveTrain.setDefaultCommand(new DriveCommand(driveTrain, xboxController));
     // Configure the trigger bindings
     configureBindings();
   }
@@ -42,13 +39,13 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_DriveTrain::exampleCondition)
-        .onTrue(new ExampleCommand(m_DriveTrain));
+    // Schedule `DriveCommand` when `exampleCondition` changes to `true`
+    new Trigger(driveTrain::exampleCondition)
+        .onTrue(new DriveCommand(driveTrain, xboxController));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_DriveTrain.exampleMethodCommand());
+    m_driverController.b().whileTrue(driveTrain.exampleMethodCommand());
   }
 
   /**
@@ -58,6 +55,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_DriveTrain);
+    return Autos.exampleAuto(driveTrain, xboxController);
   }
 }

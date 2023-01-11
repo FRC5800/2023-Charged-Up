@@ -32,14 +32,15 @@ public class DriveTrain extends SubsystemBase {
 
   }
 
-  public void arcadeDrive(double speed, double rotation) {
-    drive.arcadeDrive(speed, rotation);
-  }
-
   public void stopMotors() {
     drive.stopMotor();
   }
 
+  public void arcadeDrive(double fwd, double rot) {
+
+    drive.arcadeDrive(fwd, rot);
+
+  }
   
   /**
    * Example command factory method.
@@ -75,4 +76,5 @@ public class DriveTrain extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
 }
