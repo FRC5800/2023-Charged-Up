@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.OperatorConstants;
 
 /** An example command that uses an example subsystem. */
 public class DriveCommand extends CommandBase {
@@ -34,8 +35,17 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double moveLeft = xboxController.getRawAxis(XboxController.Axis.kLeftY.value) * 0.6;
-    double turnRight = xboxController.getRawAxis(XboxController.Axis.kRightX.value) * 0.6;
+    double axisLeft = xboxController.getRawAxis(XboxController.Axis.kLeftY.value) * 0.6;
+    double axisRight = xboxController.getRawAxis(XboxController.Axis.kRightX.value) * 0.6;
+    double moveLeft = 0;
+    double turnRight = 0;
+
+    if (axisLeft > OperatorConstants.DEAD_ZONE && axisLeft < -OperatorConstants.DEAD_ZONE){
+      moveLeft = axisLeft;
+    }
+    if(axisRight > OperatorConstants.DEAD_ZONE && axisRight < -OperatorConstants.DEAD_ZONE){
+      turnRight = axisRight;
+    }
 
     driveTrain.arcadeDrive(moveLeft, turnRight);
 

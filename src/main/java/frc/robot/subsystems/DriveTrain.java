@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.OperatorConstants;;
+import frc.robot.Constants.OperatorConstants;
 
 public class DriveTrain extends SubsystemBase {
   
@@ -33,7 +33,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void stopMotors() {
-    drive.stopMotor();
+    arcadeDrive(0,0);
   }
 
   public void arcadeDrive(double fwd, double rot) {
