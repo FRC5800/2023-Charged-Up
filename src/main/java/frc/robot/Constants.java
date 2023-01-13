@@ -21,4 +21,10 @@ public final class Constants {
     public static final int RIGHT_SLAVE_ID = 4;
     public static final float DEAD_ZONE = 0.1f;
   }
+
+  public static final int LEFT_SLAVE = 0;
+public static final int LEFT_MASTER = 0;
+public static final int RIGHT_MASTER = 0;
+public static final int RIGHT_SLAVE = 0;
+
 }
